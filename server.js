@@ -11,7 +11,7 @@ app.set('view engine', 'ejs')
 
 var db
 
-MongoClient.connect(config.connectionString, (err, client) => {
+MongoClient.connect(config.con, (err, client) => {
 if (err) {
     return console.log(err)
 }
@@ -37,10 +37,17 @@ app.get('/', (req, res) => {
   
 
 app.post('/quotes', (req, res) => {
-    db.collection('quotesCollection').insertOne(req.body, (err, result) => {
-        if (err) return console.log(err)
+    if (req.body.name==req.body.quote || req.body.name.length<4 || req.body.name.length<4)
+    {
+        res.status(400).send({"status":"400", "error":'Enter Appropriate Name or Quote'});
+    }  
+    else{
+        db.collection('quotesCollection').insertOne(req.body, (err, result) => {
+            if (err) return console.log(err)
+        
+            console.log('saved to database')
+            res.redirect('/')
+        })
+    }
     
-        console.log('saved to database')
-        res.redirect('/')
-    })
 })
