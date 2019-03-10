@@ -1,5 +1,5 @@
 # quotecrud
-A basic html nodejs mongo app
+A basic html nodejs mongo app to enter and display quotes
 
 1. Download the repo
 2. Create an account on mlab and use your database collection address as connection string in server.js
